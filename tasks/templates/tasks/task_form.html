@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if task %}Edit Task{% else %}New Task{% endif %}</title>
+</head>
+<body>
+    <h1>{% if task %}Edit Task{% else %}New Task{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <p><a href="{% url 'task_list' %}">Back to list</a></p>
+</body>
+</html>

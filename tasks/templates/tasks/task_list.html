@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasks</title>
+</head>
+<body>
+    <h1>Tasks</h1>
+    <p><a href="{% url 'task_create' %}">Add new task</a></p>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }} - {% if task.completed %}Done{% else %}Not done{% endif %}
+                <form method="post" action="{% url 'task_toggle' task.pk %}">
+                    {% csrf_token %}
+                    <button type="submit">
+                        {% if task.completed %}Mark incomplete{% else %}Mark complete{% endif %}
+                    </button>
+                </form>
+                <a href="{% url 'task_update' task.pk %}">Edit</a>
+                <a href="{% url 'task_delete' task.pk %}">Delete</a>
+            </li>
+        {% empty %}
+            <li>No tasks yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
