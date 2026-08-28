@@ -63,3 +63,27 @@ jobs:
 
       - name: Run tests
         run: python manage.py test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/surendar-ggaf/taskpipe:latest
+            ghcr.io/surendar-ggaf/taskpipe:${{ github.sha }}
