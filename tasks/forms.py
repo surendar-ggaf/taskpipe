@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django import forms
 
 from .models import Task
@@ -6,4 +8,4 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'completed']
+        fields: ClassVar[list[str]] = ['title', 'description', 'completed']
