@@ -87,3 +87,7 @@ jobs:
           tags: |
             ghcr.io/surendar-ggaf/taskpipe:latest
             ghcr.io/surendar-ggaf/taskpipe:${{ github.sha }}
+
+      - name: Trigger Render deploy
+        run: curl -f -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}      
+
